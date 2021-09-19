@@ -1,6 +1,15 @@
 # Ping_osquery
 
-Part 1: Explaining the Ping.c code 
+Part1: Steps to perfom
+
+1. Install OsQuery following the steps provided in https://osquery.io/ for you operating system.
+2. 
+
+
+
+
+
+Part 2: Explaining the Ping.c code 
 Creating the PING
 
 
