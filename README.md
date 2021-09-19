@@ -3,16 +3,19 @@
 Part1: Steps to perfom
 
 1. Install OsQuery following the steps provided in https://osquery.io/ for you operating system.
-2. 
-
-
-
-
+2.  Perform Ad-hoc Security Check
+     To launch osquery execute sudo osqueryi --config_path /etc/osquery/osquery.conf --verbose  (assing osqueryi and osqueryd the verbose option lets you see any errors or warnings that might indicate issues with osquery)
+3. To Check who else is loged into the system execute select * from logged_in_users ;
+4. List of loaded kernel modules execute select name, used_by, status from kernel_modules where status="Live" ;
+5. To find Backdoors on the server is to run a query that lists all the listening ports. execute: select * from listening_ports ;
+6. To look at file activity on the server execute: select target_path, action, uid from file_events ;
+7. Navigate to the spec source folder and place the Ping.table
+8. Place the Ping.c file under osquery/tables/utility/time.cpp
+9. ./build/[darwin|linux]/osquery/osqueryi 
+10. Run SELECT Latency FROM ping 
 
 Part 2: Explaining the Ping.c code 
 Creating the PING
-
-
 
 Working Mechanism
 
@@ -51,4 +54,8 @@ The steps followed by a simple ping program are:
           5.	Send the packet
           6.	Wait for it to be received.
 
-Part2: Methods used and Implementation 
+ 
+Part3: Security Threats and prevention
+
+ICMP resides in the Layer3 i.e the Network layer and this is prone to the Smurf attack, i.e A Smurf Attack is a DDoS form that makes computer networks inoperable by exploiting IP (Internet Protocol) and ICMP (Internet Control Message Protocols) vulnerabilities. 
+To avoid being the victim, you should have a prevention strategy based on traffic network monitoring that can detect any oddments – like packet volume, behaviour and signature. This could help you stop a Smurf Attack before it even begins you can use a DNS based cloud service and have secure certificate exchange. 
