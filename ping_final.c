@@ -117,7 +117,7 @@ void send_ping(int ping_sockfd, struct sockaddr_in *ping_addr, char *ping_dom, c
     struct ping_pkt pckt;
     struct sockaddr_in r_addr;
     struct timespec time_start, time_end, tfs, tfe;
-    long double rtt_msec=0, total_msec=0;
+    long double latency_msec=0, total_msec=0;
     struct timeval tv_out;
     tv_out.tv_sec = RECV_TIMEOUT;
     tv_out.tv_usec = 0;
@@ -182,7 +182,7 @@ void send_ping(int ping_sockfd, struct sockaddr_in *ping_addr, char *ping_dom, c
             clock_gettime(CLOCK_MONOTONIC, &time_end);
               
             double timeElapsed = ((double)(time_end.tv_nsec - time_start.tv_nsec))/1000000.0;
-            rtt_msec = (time_end.tv_sec- time_start.tv_sec) * 1000.0+ timeElapsed;
+            latency_msec = (time_end.tv_sec- time_start.tv_sec) * 1000.0+ timeElapsed;
               
             // if packet was not sent, don't receive
             if(flag)
@@ -193,7 +193,8 @@ void send_ping(int ping_sockfd, struct sockaddr_in *ping_addr, char *ping_dom, c
                 }
                 else
                 {
-                    printf("%d bytes from %s (h: %s) (%s) msg_seq=%d ttl=%d rtt = %Lf ms.\n",PING_PKT_S, ping_dom,rev_host,ping_ip, msg_count,ttl_val, rtt_msec);
+              
+                    printf("%d bytes from %s (h: %s) (%s) msg_seq=%d ttl=%d latency = %Lf ms.\n",PING_PKT_S, ping_dom,rev_host,ping_ip, msg_count,ttl_val, latency_msec);
   
                     msg_received_count++;
                 }
