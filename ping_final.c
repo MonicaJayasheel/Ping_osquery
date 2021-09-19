@@ -108,7 +108,7 @@ char* reverse_dns_lookup(char *ip_addr)
 }
  
 // make a ping request
-void ping(int ping_sockfd, struct sockaddr_in *ping_addr, char *ping_dom, char *ping_ip, char *rev_host)
+void send_ping(int ping_sockfd, struct sockaddr_in *ping_addr, char *ping_dom, char *ping_ip, char *rev_host)
 {
     int ttl_val=64, msg_count=0, i, addr_len, flag=1, msg_received_count=0;
      
@@ -171,7 +171,7 @@ void ping(int ping_sockfd, struct sockaddr_in *ping_addr, char *ping_dom, char *
              
             double timeElapsed = ((double)(time_end.tv_nsec - time_start.tv_nsec))/1000000.0;
             Latency = (time_end.tv_sec- time_start.tv_sec) * 1000.0+ timeElapsed;
-             
+             return latency; 
             // if packet was not sent, don't receive
             if(flag)
             {
@@ -191,4 +191,5 @@ void ping(int ping_sockfd, struct sockaddr_in *ping_addr, char *ping_dom, char *
     double timeElapsed = ((double)(tfe.tv_nsec - tfs.tv_nsec))/1000000.0;
      
     total_msec = (tfe.tv_sec-tfs.tv_sec)*1000.0+ timeElapsed;  
+
 }
