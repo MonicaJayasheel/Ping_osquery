@@ -9,5 +9,5 @@ extended_schema(lambda: LINUX() or DARWIN() or WINDOWS(), [
 ])
 implementation("ping@send_ping")
 examples([
-  "select * from process_open_sockets where pid = 1",
+  "select Latency from ping",
 ])
