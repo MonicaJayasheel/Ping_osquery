@@ -1,0 +1,15 @@
+table_name("ping")
+description("Pings and provides latency")
+schema([
+    Column("Latency" DOUBLE FLOAT, "Ping latency"),
+])
+extended_schema(lambda: LINUX() or DARWIN() or WINDOWS(), [
+    Column("state", TEXT, "TCP socket state"),
+])
+extended_schema(LINUX, [
+    Column("net_namespace", TEXT, "The inode number of the network namespace"),
+])
+implementation("system/process_open_sockets@genOpenSockets")
+examples([
+  "select * from process_open_sockets where pid = 1",
+])
